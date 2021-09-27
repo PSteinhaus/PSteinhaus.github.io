@@ -14,16 +14,16 @@ pub fn main() -> GameResult {
     } else {
         path::PathBuf::from("./resources")
     };
-
-    let cb = ggez::ContextBuilder::new("animation example", "ggez").add_resource_path(resource_dir);
-    let (mut ctx, event_loop) = cb.build()?;
-    let state = MainState::new(&mut ctx)?;
-
+    
     // instructions
     println!("CONTROLS:");
     println!("Left/Right: change animation");
     println!("Up/Down: change easing function");
     println!("W/S: change duration");
+
+    let cb = ggez::ContextBuilder::new("animation example", "ggez").add_resource_path(resource_dir);
+    let (mut ctx, event_loop) = cb.build()?;
+    let state = MainState::new(&mut ctx)?;
 
     event::run(ctx, event_loop, state)
 }
