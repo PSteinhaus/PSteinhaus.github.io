@@ -21,10 +21,8 @@
 
 <body>
     <canvas id="glcanvas" tabindex='1'></canvas>
-    <!-- find up to date versions here: https://github.com/not-fl3/miniquad/blob/master/native/sapp-wasm/js/gl.js -->
-    <script src="gl.js"></script>
-    <!-- audio plugin necessary for sounds to be played -->
-    <script src="audio.js"></script>
+    <!-- for now this is just the js glue used by macroquad: https://github.com/not-fl3/macroquad/tree/master/js -->
+    <script src="js_bundle.js"></script>
     <script>load("05_astroblasto.wasm");</script> <!-- your compiled wasm file -->
 </body>
 
