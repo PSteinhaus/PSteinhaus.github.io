@@ -1,0 +1,43 @@
+body {
+    height: 100vh;
+}
+
+.main {
+    overflow-wrap: break-word;
+}
+
+.main-column {
+    margin-top: 20%;
+    margin-bottom: 9em;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: large;
+}
+
+.flex {
+    display: flex;
+}
+
+.options-left-side {
+    padding-right: 3em;
+}
+
+#transformed-text {
+    white-space: pre-wrap;    /* Allows wrapping */
+    word-break: break-word;   /* Breaks long words if needed */
+    display: block;
+}
+
+#dictation-input {
+    white-space: pre-wrap;    /* Allows wrapping */
+    word-break: break-word;   /* Breaks long words if needed */
+    width: 100%;
+    min-height: fit-content;
+}
+
+textarea {
+    overflow: hidden; /* Hide scrollbars */
+    resize: none;     /* Disable manual resizing (optional) */
+}

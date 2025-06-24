@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>dictation tool</title>
+  <script defer src="./main.js"></script>
+  <meta name="description" content="">
+  <meta name="author" content="Philipp Steinhaus">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container main">
+    <div class="row main-row">
+      <div class="column main-column">
+        <h1>Dictation Tool</h1>
+        <form class="options-container">
+          <h2>Options:</h2>
+              <label for="pausePerLetter">pause per letter (in seconds):</label>
+              <input type="number" name="pausePerLetter" id="pausePerLetter" min="0" value="0.3" step="0.1">
+            <div class="flex">
+              <div class="options-left-side">
+                <label for="pausePerComma">pause per comma (in seconds):</label>
+                <input type="number" name="pausePerComma" id="pausePerComma" min="0" value="1" step="0.1">
+              </div>
+              <div>
+                <label for="verbaliseCommata">verbalise commata:</label>
+                <input type="checkbox" name="verbaliseCommata" id="verbaliseCommata">
+              </div>
+            </div>
+            <div class="flex">
+              <div class="options-left-side">
+                <label for="pausePerPoint">pause per point (in seconds):</label>
+                <input type="number" name="pausePerPoint" id="pausePerPoint" min="0" value="2" step="0.1">
+              </div>
+              <div>
+                <label for="verbalisePoints">verbalise points:</label>
+                <input type="checkbox" name="verbalisePoints" id="verbalisePoints">
+              </div>
+            </div>
+        </form>
+        <form id="dictation-form">
+          <h2>Text to be transformed for dictation:</h2>
+          <textarea id="dictation-input" oninput="autoResize(this)"></textarea>
+          <input id="dictation-submit" type="submit">
+        </form>
+        <div class="output-area">
+            <h2>Transformed text that works as input for Google Text-To-Speech</h2>
+            <div class="transformed-text-container">
+              <code id="transformed-text"></code>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
