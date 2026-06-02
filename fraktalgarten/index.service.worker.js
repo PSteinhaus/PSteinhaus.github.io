@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1780230844|11326832718';
+const CACHE_VERSION = '1780394357|4406549752';
 /** @type {string} */
 const CACHE_PREFIX = 'Mathtrees-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
