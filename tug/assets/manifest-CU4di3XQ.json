@@ -1,6 +1,6 @@
 {
     "name": "Mathe-Tauziehen",
-    "short_name": "Tauziehen",
+    "short_name": "Mathe-Tauziehen",
     "start_url": "/tug/",
     "scope": "/tug/",
     "display": "standalone",
