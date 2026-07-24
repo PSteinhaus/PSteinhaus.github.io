@@ -207,10 +207,10 @@ float interact(float x, float y, float z) {
 }
 
 vec3 activation(float r, float g, float b) {
-  float i_r = interact(r, g, b);
-  float i_g = interact(g, b, r);
+  float i_r = interact(r*0.94, g, b);
+  float i_g = interact(g*0.98, b, r);
   float i_b = interact(b, r, g);
-  return vec3(i_r*0.94, i_g*0.98, i_b);
+  return vec3(i_r, i_g, i_b);
 }`,color:[.30980392156862746,1,.10980392156862745],bg_color:`#000000`},"../../assets/settings/mitosis.json":{reset_type:`random`,filter:{0:-.9469999799728394,1:.8799999952316284,2:-.9469999799728394,3:.8799999952316284,4:.4000000059604645,5:.8799999952316284,6:-.9469999799728394,7:.8799999952316284,8:-.9469999799728394},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`// an inverted gaussian function, 
 // where f(0) = 0. 
 // Graph: https://www.desmos.com/calculator/torawryxnq
