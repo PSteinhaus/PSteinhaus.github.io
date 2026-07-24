@@ -183,19 +183,24 @@ vec3 activation(float r, float g, float b) {
   return (x >= 0.0) ? floor(x + 0.5) : ceil(x - 0.5);
 }
 
-float gol(float x) {
-  x = myRound(x);
-  if (x == 3. || x == 11. || x == 12.){
-    return 1.;
-  }
-  return 0.;
-}
-
 float interact(float x, float y, float z) {
-   x = myRound(x);
-   y = myRound(y);
-   z = myRound(z);
-  if (x == 3. || z == 6. || x == 11. || x == 13. || abs(myRound(x - y)) == 14. || abs(myRound(z - y)) == 5. || myRound(z + y) == 18.) {
+  x = myRound(x);
+  y = myRound(y);
+  z = myRound(z);
+  
+  // filter out states that are too noisy
+  // (not always necessary)
+  if (x + y + z > 33.) {
+    return 0.;
+  }
+  
+  // the precious glider rule
+  bool glider_rule = abs(myRound(x - y)) == 14.;
+  
+  // birth of a color from other colors
+  bool cross_birth = x == 2. && (myRound(y - z) == 4. || myRound(z + y) == 4.);
+  
+  if (x == 3. || z == 6. || x == 11. || x == 13. || cross_birth || glider_rule ) {
     return 1.;
   }
   return 0.;
@@ -205,8 +210,8 @@ vec3 activation(float r, float g, float b) {
   float i_r = interact(r, g, b);
   float i_g = interact(g, b, r);
   float i_b = interact(b, r, g);
-  return vec3(i_r*0.95, i_g*0.97, i_b);
-}	`,color:[.30980392156862746,1,.10980392156862745],bg_color:`#000000`},"../../assets/settings/mitosis.json":{reset_type:`random`,filter:{0:-.9469999799728394,1:.8799999952316284,2:-.9469999799728394,3:.8799999952316284,4:.4000000059604645,5:.8799999952316284,6:-.9469999799728394,7:.8799999952316284,8:-.9469999799728394},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`// an inverted gaussian function, 
+  return vec3(i_r*0.94, i_g*0.98, i_b);
+}`,color:[.30980392156862746,1,.10980392156862745],bg_color:`#000000`},"../../assets/settings/mitosis.json":{reset_type:`random`,filter:{0:-.9469999799728394,1:.8799999952316284,2:-.9469999799728394,3:.8799999952316284,4:.4000000059604645,5:.8799999952316284,6:-.9469999799728394,7:.8799999952316284,8:-.9469999799728394},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`// an inverted gaussian function, 
 // where f(0) = 0. 
 // Graph: https://www.desmos.com/calculator/torawryxnq
 
