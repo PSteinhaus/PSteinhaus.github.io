@@ -165,7 +165,7 @@ vec3 activation(float r, float g, float b) {
   g = inv_g(g);
   b = inv_g(b);
   return vec3(r, g, b);
-}`}],$={name:`ActivationSettings`,components:{GLSLEditor:tc,ActivationWiki:ls,WikiSection:os},data(){let e=structuredClone(nc);return{code:Z.activationSource,error:``,selected:e[0],activations:e,ignore_change:!1,pendingSetCode:null}},methods:{parseError(e){e?(e=e.substring(0,e.length-1),e.includes(`float`)&&e.includes(`int`)&&(e=`(Use 1. instead of 1 for floats) ${e}`),this.error=e):this.error=``},select(){this.ignore_change=!0,this.code=structuredClone(this.selected.code)},refreshEditor(){this.$refs.editor.refresh()}},watch:{code(){this.ignore_change?this.ignore_change=!1:this.selected=void 0,this.pendingSetCode&&clearTimeout(this.pendingSetCode),this.pendingSetCode=setTimeout(()=>{Z.activationSource=this.code;let e=Z.apply(!0);this.parseError(e),this.pendingSetCode=0},500)}}},rc={id:`error`},ic={id:`dropdown`},ac=[`value`];function oc(e,t,n,r,i,a){let o=mr(`GLSLEditor`),s=mr(`ActivationWiki`),c=mr(`WikiSection`);return W(),G(`div`,null,[Y(o,{modelValue:i.code,"onUpdate:modelValue":t[0]||=e=>i.code=e,ref:`editor`},null,8,[`modelValue`]),J(`div`,rc,Ee(i.error),1),J(`div`,ic,[t[3]||=Xi(` Activation Functions: `,-1),An(J(`select`,{"onUpdate:modelValue":t[1]||=e=>i.selected=e,onChange:t[2]||=e=>a.select()},[(W(!0),G(Pi,null,vr(i.activations,(e,t)=>(W(),G(`option`,{value:e,key:t},Ee(e.name),9,ac))),128))],544),[[Co,i.selected]])]),Y(c,null,{default:kn(()=>[Y(s)]),_:1})])}var sc={name:`Settings`,components:{AccordionItem:ts,About:hs,StateSettings:bs,FilterSettings:Ps,DisplaySettings:Ws,ActivationSettings:Uo($,[[`render`,oc],[`__scopeId`,`data-v-17ef03ab`]])},data(){return{filter:Io.randomKernel(),is_playing:!0,panel_open:!Vo,IsMobile:Vo,hide_settings:!1}},mounted(){window.addEventListener(`keyup`,this.onKeyUp)},beforeUnmount(){window.removeEventListener(`keyup`,this.onKeyUp)},methods:{onKeyUp(e){let t=document.activeElement.tagName;if(t!==`INPUT`&&t!==`TEXTAREA`)switch(e.key.toLowerCase()){case` `:this.pauseToggle(),t===`BUTTON`&&e.preventDefault();break;case`f`:this.randomize();break;case`d`:this.$refs.stateSettings.reset();break;case`s`:this.$refs.stateSettings.reset(`empty`);break;case`a`:this.is_playing||this.step();break;case`v`:this.hide_settings=!this.hide_settings;break}},pauseToggle(){Z.pauseToggle(),this.is_playing=!Z.paused},setPaused(e){Z.setPaused(e),this.is_playing=!Z.paused},step(){Z.step()},randomize(){this.$refs.filterSettings.randomize(),this.$refs.displaySettings.always_randomize&&this.$refs.displaySettings.randomize(),this.$refs.stateSettings.reset_on_random&&this.reset()},reset(){this.$refs.stateSettings.reset()},loadConfig(e,t){this.$refs.stateSettings.persistent=e.persistent,this.$refs.stateSettings.active_button=e.active_button,this.$refs.filterSettings.clearSymmetry(),this.$refs.filterSettings.hor_sym=!!e.hor_sym,this.$refs.filterSettings.ver_sym=!!e.ver_sym,this.$refs.filterSettings.full_sym=!!e.full_sym,this.$refs.filterSettings.setSymmetry(2),this.$refs.filterSettings.setFilter(e.filter),this.$refs.activationSettings.code=e.activation,e.color===`random`?this.$refs.displaySettings.randomize():this.$refs.displaySettings.setColor(e.color);let n=e.bg_color?e.bg_color:`#000000`;this.$refs.displaySettings.bgColor=n,this.$refs.displaySettings.persistent=e.persistent,this.$refs.displaySettings.skip_frames=e.skip_frames,this.$refs.displaySettings.setSkipFrames(),Z.load(e,t)},setOpen(e){this.panel_open=e,setTimeout(()=>this.$refs.activationSettings?.refreshEditor(),100)}}},cc={id:`settings-panel`},lc={id:`header`},uc={id:`accordion`},dc={id:`footer`},fc={key:0,class:`fa fa-pause`},pc={key:1,class:`fa fa-play`},mc={id:`hotbar`},hc={key:0,class:`fa fa-pause`},gc={key:1,class:`fa fa-play`};function _c(e,t,n,r,i,a){let o=mr(`About`),s=mr(`AccordionItem`),c=mr(`StateSettings`),l=mr(`FilterSettings`),u=mr(`ActivationSettings`),d=mr(`DisplaySettings`);return W(),G(`div`,null,[An(J(`div`,cc,[J(`div`,lc,[J(`button`,{id:`min-btn`,onClick:t[0]||=e=>a.setOpen(!1)},[...t[11]||=[J(`i`,{class:`fa fa-minus`},null,-1)]]),i.IsMobile?Qi(``,!0):(W(),G(`button`,{key:0,id:`save-btn`,onClick:t[1]||=t=>{e.$emit(`save`),a.setPaused(!0)}},`Save`)),J(`button`,{id:`load-btn`,onClick:t[2]||=t=>{e.$emit(`load`),a.setPaused(!0)}},`Load`)]),J(`div`,uc,[Y(s,{title:`About`},{default:kn(()=>[Y(o)]),_:1}),Y(s,{title:`Restart Options`},{default:kn(()=>[Y(c,{ref:`stateSettings`},null,512)]),_:1}),Y(s,{title:`Filter`,start_open:!0},{default:kn(()=>[Y(l,{ref:`filterSettings`},null,512)]),_:1}),Y(s,{title:`Activation`,start_open:!0,onOpened:t[3]||=t=>e.activationSettings?.refresh()},{default:kn(()=>[Y(u,{ref:`activationSettings`},null,512)]),_:1}),Y(s,{title:`Display`},{default:kn(()=>[Y(d,{ref:`displaySettings`},null,512)]),_:1})]),J(`div`,dc,[J(`button`,{id:`pause-btn`,onClick:t[4]||=e=>a.pauseToggle(),title:`Pause/Play. Hotkey: Spacebar`},[i.is_playing?(W(),G(`i`,fc)):(W(),G(`i`,pc))]),i.is_playing?Qi(``,!0):(W(),G(`button`,{key:0,id:`step-btn`,onClick:t[5]||=e=>a.step(),title:`Step the simulation once. Hotkey: A`},[...t[12]||=[J(`i`,{class:`fa fa-step-forward`},null,-1)]])),J(`button`,{id:`randomize-btn`,onClick:t[6]||=e=>a.randomize(),title:`Randomize filter and color. Hotkey: F`},`Randomize`),J(`button`,{id:`reset-btn`,onClick:t[7]||=e=>a.reset(),title:`Reset all pixel values as defined in Restart Options. Hotkey: D`},`Restart`)])],512),[[za,i.panel_open&&!i.hide_settings]]),An(J(`div`,mc,[J(`button`,{id:`settings-btn`,onClick:t[8]||=e=>a.setOpen(!0)},[...t[13]||=[J(`i`,{class:`fa fa-gear`},null,-1)]]),J(`button`,{id:`pause-btn-hot`,onClick:t[9]||=e=>a.pauseToggle(),title:`Pause/Play. Hotkey: Spacebar`},[i.is_playing?(W(),G(`i`,hc)):(W(),G(`i`,gc))]),J(`button`,{id:`randomize-btn-hot`,onClick:t[10]||=e=>a.randomize(),title:`Randomize filter and color. Hotkey: F`},`Randomize`)],512),[[za,!i.panel_open&&!i.hide_settings]])])}var vc=Uo(sc,[[`render`,_c]]),yc={name:`OptionsBox`,props:{title:String},methods:{close(){this.$emit(`close`)}}},bc={id:`container`},xc={id:`box`},Sc={id:`header`},Cc={id:`content`};function wc(e,t,n,r,i,a){return W(),G(`div`,bc,[t[2]||=J(`div`,{id:`mask`},null,-1),J(`div`,xc,[J(`div`,Sc,[Xi(Ee(n.title)+` `,1),J(`button`,{id:`close-btn`,onClick:t[0]||=(...e)=>a.close&&a.close(...e)},[...t[1]||=[J(`i`,{class:`fa fa-times`},null,-1)]])]),J(`div`,Cc,[yr(e.$slots,`default`,{},void 0,!0)])])])}var Tc=Uo(yc,[[`render`,wc],[`__scopeId`,`data-v-920eae4c`]]),Ec={name:`SaveOptions`,data(){return{filename:`settings`,randomcolor:!1}},methods:{save(){let e={};e.reset_type=Z.reset_type,e.filter=Z.filter,e.hor_sym=Z.hor_sym,e.ver_sym=Z.ver_sym,e.full_sym=Z.full_sym,e.activation=Z.activationSource,e.color=this.randomcolor?`random`:Z.color,e.bg_color=Z.bgColor,e.persistent=Z.persistent,e.skip_frames=Z.skip_frames;let t=new Blob([JSON.stringify(e,null,2)],{type:`application/json`}),n=URL.createObjectURL(t),r=this.$refs.downloadLink;r.href=n,r.download=`${this.filename}.json`,r.click(),URL.revokeObjectURL(n),this.$emit(`close`)}}},Dc={ref:`downloadLink`,style:{display:`none`}};function Oc(e,t,n,r,i,a){return W(),G(`div`,null,[t[3]||=Xi(` Save as: `,-1),An(J(`input`,{"onUpdate:modelValue":t[0]||=e=>i.filename=e,id:`filename-in`},null,512),[[bo,i.filename]]),t[4]||=Xi(`.json Randomize color on load: `,-1),An(J(`input`,{type:`checkbox`,"onUpdate:modelValue":t[1]||=e=>i.randomcolor=e},null,512),[[xo,i.randomcolor]]),t[5]||=J(`br`,null,null,-1),t[6]||=J(`br`,null,null,-1),J(`button`,{onClick:t[2]||=(...e)=>a.save&&a.save(...e)},`Save and Download`),J(`a`,Dc,null,512)])}var kc=Uo(Ec,[[`render`,Oc],[`__scopeId`,`data-v-02685fb2`]]),Ac=[{name:`Conway's Game of Life`,path:`gameoflife.json`},{name:`Wolfram's Rule 30`,path:`rule30.json`},{name:`Stars`,path:`stars.json`},{name:`Worms`,path:`worms.json`},{name:`Slime mold`,path:`slime_mold.json`},{name:`Waves`,path:`waves.json`},{name:`Mitosis`,path:`mitosis.json`},{name:`Fabric`,path:`fabric.json`},{name:`Pathways`,path:`pathways.json`}],jc=Object.assign({"../../assets/settings/_file_list.json":Ac,"../../assets/settings/fabric.json":{reset_type:`random`,filter:{0:.0367945171892643,1:.43004563450813293,2:-.736802339553833,3:.405608206987381,4:-.3213873505592346,5:-.3188324570655823,6:-.45777052640914917,7:.4155866205692291,8:.4782331585884094},hor_sym:!1,ver_sym:!1,full_sym:!1,activation:`vec3 tanh(vec3 x) {
+}`}],$={name:`ActivationSettings`,components:{GLSLEditor:tc,ActivationWiki:ls,WikiSection:os},data(){let e=structuredClone(nc);return{code:Z.activationSource,error:``,selected:e[0],activations:e,ignore_change:!1,pendingSetCode:null}},methods:{parseError(e){e?(e=e.substring(0,e.length-1),e.includes(`float`)&&e.includes(`int`)&&(e=`(Use 1. instead of 1 for floats) ${e}`),this.error=e):this.error=``},select(){this.ignore_change=!0,this.code=structuredClone(this.selected.code)},refreshEditor(){this.$refs.editor.refresh()}},watch:{code(){this.ignore_change?this.ignore_change=!1:this.selected=void 0,this.pendingSetCode&&clearTimeout(this.pendingSetCode),this.pendingSetCode=setTimeout(()=>{Z.activationSource=this.code;let e=Z.apply(!0);this.parseError(e),this.pendingSetCode=0},500)}}},rc={id:`error`},ic={id:`dropdown`},ac=[`value`];function oc(e,t,n,r,i,a){let o=mr(`GLSLEditor`),s=mr(`ActivationWiki`),c=mr(`WikiSection`);return W(),G(`div`,null,[Y(o,{modelValue:i.code,"onUpdate:modelValue":t[0]||=e=>i.code=e,ref:`editor`},null,8,[`modelValue`]),J(`div`,rc,Ee(i.error),1),J(`div`,ic,[t[3]||=Xi(` Activation Functions: `,-1),An(J(`select`,{"onUpdate:modelValue":t[1]||=e=>i.selected=e,onChange:t[2]||=e=>a.select()},[(W(!0),G(Pi,null,vr(i.activations,(e,t)=>(W(),G(`option`,{value:e,key:t},Ee(e.name),9,ac))),128))],544),[[Co,i.selected]])]),Y(c,null,{default:kn(()=>[Y(s)]),_:1})])}var sc={name:`Settings`,components:{AccordionItem:ts,About:hs,StateSettings:bs,FilterSettings:Ps,DisplaySettings:Ws,ActivationSettings:Uo($,[[`render`,oc],[`__scopeId`,`data-v-17ef03ab`]])},data(){return{filter:Io.randomKernel(),is_playing:!0,panel_open:!Vo,IsMobile:Vo,hide_settings:!1}},mounted(){window.addEventListener(`keyup`,this.onKeyUp)},beforeUnmount(){window.removeEventListener(`keyup`,this.onKeyUp)},methods:{onKeyUp(e){let t=document.activeElement.tagName;if(t!==`INPUT`&&t!==`TEXTAREA`)switch(e.key.toLowerCase()){case` `:this.pauseToggle(),t===`BUTTON`&&e.preventDefault();break;case`f`:this.randomize();break;case`d`:this.$refs.stateSettings.reset();break;case`s`:this.$refs.stateSettings.reset(`empty`);break;case`a`:this.is_playing||this.step();break;case`v`:this.hide_settings=!this.hide_settings;break}},pauseToggle(){Z.pauseToggle(),this.is_playing=!Z.paused},setPaused(e){Z.setPaused(e),this.is_playing=!Z.paused},step(){Z.step()},randomize(){this.$refs.filterSettings.randomize(),this.$refs.displaySettings.always_randomize&&this.$refs.displaySettings.randomize(),this.$refs.stateSettings.reset_on_random&&this.reset()},reset(){this.$refs.stateSettings.reset()},loadConfig(e,t){this.$refs.stateSettings.persistent=e.persistent,this.$refs.stateSettings.active_button=e.active_button,this.$refs.filterSettings.clearSymmetry(),this.$refs.filterSettings.hor_sym=!!e.hor_sym,this.$refs.filterSettings.ver_sym=!!e.ver_sym,this.$refs.filterSettings.full_sym=!!e.full_sym,this.$refs.filterSettings.setSymmetry(2),this.$refs.filterSettings.setFilter(e.filter),this.$refs.activationSettings.code=e.activation,e.color===`random`?this.$refs.displaySettings.randomize():this.$refs.displaySettings.setColor(e.color);let n=e.bg_color?e.bg_color:`#000000`;this.$refs.displaySettings.bgColor=n,this.$refs.displaySettings.persistent=e.persistent,this.$refs.displaySettings.skip_frames=e.skip_frames,this.$refs.displaySettings.setSkipFrames(),Z.load(e,t)},setOpen(e){this.panel_open=e,setTimeout(()=>this.$refs.activationSettings?.refreshEditor(),100)}}},cc={id:`settings-panel`},lc={id:`header`},uc={id:`accordion`},dc={id:`footer`},fc={key:0,class:`fa fa-pause`},pc={key:1,class:`fa fa-play`},mc={id:`hotbar`},hc={key:0,class:`fa fa-pause`},gc={key:1,class:`fa fa-play`};function _c(e,t,n,r,i,a){let o=mr(`About`),s=mr(`AccordionItem`),c=mr(`StateSettings`),l=mr(`FilterSettings`),u=mr(`ActivationSettings`),d=mr(`DisplaySettings`);return W(),G(`div`,null,[An(J(`div`,cc,[J(`div`,lc,[J(`button`,{id:`min-btn`,onClick:t[0]||=e=>a.setOpen(!1)},[...t[11]||=[J(`i`,{class:`fa fa-minus`},null,-1)]]),i.IsMobile?Qi(``,!0):(W(),G(`button`,{key:0,id:`save-btn`,onClick:t[1]||=t=>{e.$emit(`save`),a.setPaused(!0)}},`Save`)),J(`button`,{id:`load-btn`,onClick:t[2]||=t=>{e.$emit(`load`),a.setPaused(!0)}},`Load`)]),J(`div`,uc,[Y(s,{title:`About`},{default:kn(()=>[Y(o)]),_:1}),Y(s,{title:`Restart Options`},{default:kn(()=>[Y(c,{ref:`stateSettings`},null,512)]),_:1}),Y(s,{title:`Filter`,start_open:!0},{default:kn(()=>[Y(l,{ref:`filterSettings`},null,512)]),_:1}),Y(s,{title:`Activation`,start_open:!0,onOpened:t[3]||=t=>e.activationSettings?.refresh()},{default:kn(()=>[Y(u,{ref:`activationSettings`},null,512)]),_:1}),Y(s,{title:`Display`},{default:kn(()=>[Y(d,{ref:`displaySettings`},null,512)]),_:1})]),J(`div`,dc,[J(`button`,{id:`pause-btn`,onClick:t[4]||=e=>a.pauseToggle(),title:`Pause/Play. Hotkey: Spacebar`},[i.is_playing?(W(),G(`i`,fc)):(W(),G(`i`,pc))]),i.is_playing?Qi(``,!0):(W(),G(`button`,{key:0,id:`step-btn`,onClick:t[5]||=e=>a.step(),title:`Step the simulation once. Hotkey: A`},[...t[12]||=[J(`i`,{class:`fa fa-step-forward`},null,-1)]])),J(`button`,{id:`randomize-btn`,onClick:t[6]||=e=>a.randomize(),title:`Randomize filter and color. Hotkey: F`},`Randomize`),J(`button`,{id:`reset-btn`,onClick:t[7]||=e=>a.reset(),title:`Reset all pixel values as defined in Restart Options. Hotkey: D`},`Restart`)])],512),[[za,i.panel_open&&!i.hide_settings]]),An(J(`div`,mc,[J(`button`,{id:`settings-btn`,onClick:t[8]||=e=>a.setOpen(!0)},[...t[13]||=[J(`i`,{class:`fa fa-gear`},null,-1)]]),J(`button`,{id:`pause-btn-hot`,onClick:t[9]||=e=>a.pauseToggle(),title:`Pause/Play. Hotkey: Spacebar`},[i.is_playing?(W(),G(`i`,hc)):(W(),G(`i`,gc))]),J(`button`,{id:`randomize-btn-hot`,onClick:t[10]||=e=>a.randomize(),title:`Randomize filter and color. Hotkey: F`},`Randomize`)],512),[[za,!i.panel_open&&!i.hide_settings]])])}var vc=Uo(sc,[[`render`,_c]]),yc={name:`OptionsBox`,props:{title:String},methods:{close(){this.$emit(`close`)}}},bc={id:`container`},xc={id:`box`},Sc={id:`header`},Cc={id:`content`};function wc(e,t,n,r,i,a){return W(),G(`div`,bc,[t[2]||=J(`div`,{id:`mask`},null,-1),J(`div`,xc,[J(`div`,Sc,[Xi(Ee(n.title)+` `,1),J(`button`,{id:`close-btn`,onClick:t[0]||=(...e)=>a.close&&a.close(...e)},[...t[1]||=[J(`i`,{class:`fa fa-times`},null,-1)]])]),J(`div`,Cc,[yr(e.$slots,`default`,{},void 0,!0)])])])}var Tc=Uo(yc,[[`render`,wc],[`__scopeId`,`data-v-920eae4c`]]),Ec={name:`SaveOptions`,data(){return{filename:`settings`,randomcolor:!1}},methods:{save(){let e={};e.reset_type=Z.reset_type,e.filter=Z.filter,e.hor_sym=Z.hor_sym,e.ver_sym=Z.ver_sym,e.full_sym=Z.full_sym,e.activation=Z.activationSource,e.color=this.randomcolor?`random`:Z.color,e.bg_color=Z.bgColor,e.persistent=Z.persistent,e.skip_frames=Z.skip_frames;let t=new Blob([JSON.stringify(e,null,2)],{type:`application/json`}),n=URL.createObjectURL(t),r=this.$refs.downloadLink;r.href=n,r.download=`${this.filename}.json`,r.click(),URL.revokeObjectURL(n),this.$emit(`close`)}}},Dc={ref:`downloadLink`,style:{display:`none`}};function Oc(e,t,n,r,i,a){return W(),G(`div`,null,[t[3]||=Xi(` Save as: `,-1),An(J(`input`,{"onUpdate:modelValue":t[0]||=e=>i.filename=e,id:`filename-in`},null,512),[[bo,i.filename]]),t[4]||=Xi(`.json Randomize color on load: `,-1),An(J(`input`,{type:`checkbox`,"onUpdate:modelValue":t[1]||=e=>i.randomcolor=e},null,512),[[xo,i.randomcolor]]),t[5]||=J(`br`,null,null,-1),t[6]||=J(`br`,null,null,-1),J(`button`,{onClick:t[2]||=(...e)=>a.save&&a.save(...e)},`Save and Download`),J(`a`,Dc,null,512)])}var kc=Uo(Ec,[[`render`,Oc],[`__scopeId`,`data-v-02685fb2`]]),Ac=[{name:`Conway's Game of Life`,path:`gameoflife.json`},{name:`Philipp's Game of Rockets`,path:`gameofrockets.json`},{name:`Wolfram's Rule 30`,path:`rule30.json`},{name:`Stars`,path:`stars.json`},{name:`Worms`,path:`worms.json`},{name:`Slime mold`,path:`slime_mold.json`},{name:`Waves`,path:`waves.json`},{name:`Mitosis`,path:`mitosis.json`},{name:`Fabric`,path:`fabric.json`},{name:`Pathways`,path:`pathways.json`}],jc=Object.assign({"../../assets/settings/_file_list.json":Ac,"../../assets/settings/fabric.json":{reset_type:`random`,filter:{0:.0367945171892643,1:.43004563450813293,2:-.736802339553833,3:.405608206987381,4:-.3213873505592346,5:-.3188324570655823,6:-.45777052640914917,7:.4155866205692291,8:.4782331585884094},hor_sym:!1,ver_sym:!1,full_sym:!1,activation:`vec3 tanh(vec3 x) {
   return (exp(2.*x)-1.)/(exp(2.*x)+1.);
 }
 
@@ -179,7 +179,135 @@ vec3 activation(float r, float g, float b) {
   float i_g = interact(g, b, r);
   float i_b = interact(b, r, g);
   return tanh(vec3(i_r, i_g, i_b));
-}`,color:[1,.3058823529411765,.3607843137254902],bg_color:`#000000`,persistent:!1,skip_frames:!1},"../../assets/settings/gameoflife.json":{reset_type:`random`,filter:{0:1,1:1,2:1,3:1,4:9,5:1,6:1,7:1,8:1},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`float myRound(float x) {
+}`,color:[1,.3058823529411765,.3607843137254902],bg_color:`#000000`,persistent:!1,skip_frames:!1},"../../assets/settings/gameoflife.json":{reset_type:`random`,filter:{0:1,1:1,2:1,3:1,4:9,5:1,6:1,7:1,8:1},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`float round(float x) {
+  return (x >= 0.0) ? floor(x + 0.5) : ceil(x - 0.5);
+}
+
+// Decode a weighted sum (9*center + neighbors)
+void decode(float sum, out float center, out float neighbors)
+{
+  sum = round(sum);
+
+  // the center decoding here is WRONG
+  // it should be:
+  //center = float(sum - 9. >= 0.);
+  // but the corrected version is a bit
+  // boring in the current rule case
+  // so I'm leaving the wrong one here
+  center = round(sum / 9.);
+  neighbors = mod(sum, 9.);
+}
+
+// Six relatively prime weights.
+// The modulus is also prime.
+float hash(
+    float n_x, float n_y, float n_z,
+    float c_x, float c_y, float c_z,
+    float rotation)
+{
+  float w0=19.;
+  float w1=17.;
+  float w2=13.;
+  float w3=11.;
+
+  for(int i=0;i<3;i++){
+
+      if(float(i)<rotation){
+
+          float t=w0;
+          w0=w1;
+          w1=w2;
+          w2=w3;
+          w3=t;
+      }
+  }
+
+  float m = 23.0;
+  float sum = 0.0;
+
+  sum += mod(n_x,        m);
+  sum += mod(n_y * w0,   m);
+  sum += mod(n_z * w1,   m);
+  sum += mod(c_x * 9.0,  m);
+  sum += mod(c_y * w2,   m);
+  sum += mod(c_z * w3,   m);
+
+  return mod(sum, m);
+}
+
+bool inSet(
+    float x,
+    float a,float b,float c,float d,
+    float e,float f,float g,float h)
+{
+    return
+        x==a||x==b||x==c||x==d||
+        x==e||x==f||x==g||x==h;
+}
+
+bool birthRule(float phase) {
+    return inSet(
+        phase,
+         3., -1., -1., -1.,
+        -1., -1., -1., -1.
+    );
+}
+ 
+bool surviveRule(float phase) {
+    return inSet(
+        phase,
+        11., 12., -1., -1.,
+        -1., -1., -1., -1.
+    );
+}
+
+vec3 activation(float r, float g, float b)
+{
+  float rc, rn;
+  float gc, gn;
+  float bc, bn;
+  decode(r, rc, rn);
+  decode(g, gc, gn);
+  decode(b, bc, bn);
+  
+  //---------------------
+  // Phase information
+  //---------------------
+  float phaseR = hash(rn,gn,bn,rc,gc,bc, 0.);
+  float phaseG = hash(gn,bn,rn,gc,bc,rc, 0.);
+  float phaseB = hash(bn,rn,gn,bc,rc,gc, 0.);
+  
+  bool birthR = birthRule(phaseR);
+  bool surviveR = surviveRule(phaseR);
+
+  bool birthG = birthRule(phaseG);
+  bool surviveG = surviveRule(phaseG);
+  
+  bool birthB = birthRule(phaseB);
+  bool surviveB = surviveRule(phaseB);
+
+  bool r_alive = rc == 1.;
+  bool g_alive = gc == 1.;
+  bool b_alive = bc == 1.;
+
+    bool nextR =
+    (r_alive && surviveR) ||
+    (!r_alive && birthR);
+
+  bool nextG =
+    (g_alive && surviveG) ||
+    (!g_alive && birthG);
+
+  bool nextB =
+    (b_alive && surviveB) ||
+    (!b_alive && birthB);
+
+  return vec3(
+    nextR ? 1.0 : 0.0,
+    nextG ? 1.0 : 0.0,
+    nextB ? 1.0 : 0.0
+  );
+}`,color:[.30980392156862746,1,.10980392156862745],bg_color:`#000000`},"../../assets/settings/gameofrockets.json":{reset_type:`random`,filter:{0:1,1:1,2:1,3:1,4:9,5:1,6:1,7:1,8:1},hor_sym:!0,ver_sym:!0,full_sym:!0,activation:`float myRound(float x) {
   return (x >= 0.0) ? floor(x + 0.5) : ceil(x - 0.5);
 }
 
