@@ -1,0 +1,188 @@
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*
+     * Hier später einfach deine echte Textur einsetzen.
+     * Beispiel:
+     * background-image: url("textur.jpg");
+     */
+    background-color: #d8d0c2;
+    background-image: url("haferherr.webp");
+    background-repeat: repeat;
+    background-size: auto;
+
+    color: #3f3d39;
+}
+
+
+/* =========================
+   GEDICHT
+   ========================= */
+
+.poem {
+    width: min(90vw, 650px);
+
+    padding: 3.5rem 4rem;
+
+    background: #e8dcc7;
+
+    text-align: center;
+
+    /*
+     * Leicht abgesetzte Fläche,
+     * aber bewusst ohne starke Effekte.
+     */
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    margin-top: 1000px;
+}
+
+.poem p {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+
+    color: #3f3d39;
+    font-weight: 600;
+}
+
+.jauchzet {
+    font-size: 3.25rem;
+}
+
+.frohlocket {
+    font-size: 2.25rem;
+}
+
+/* =========================
+   BILDER OBEN
+   ========================= */
+
+.corner-image {
+    position: absolute;
+
+    top: 2rem;
+
+    width: 340px;
+    height: 340px;
+
+    overflow: hidden;
+
+    /*
+     * Verhindert, dass das Bild während
+     * der Bewegung aus seinem Container läuft.
+     */
+}
+
+.corner-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    /*
+     * Die Animation wird über JavaScript
+     * zwischen zwei Zuständen umgeschaltet.
+     */
+    transition: transform 0.08s linear;
+
+    transform-origin: center center;
+}
+
+
+/* Linkes Bild */
+
+.corner-image-left {
+    left: 2rem;
+}
+
+
+/* Rechtes Bild */
+
+.corner-image-right {
+    right: 2rem;
+}
+
+
+/*
+ * Zustand 1
+ */
+
+.corner-image-left.state-a img {
+    transform: translate(0, 0) rotate(-3deg);
+}
+
+.corner-image-right.state-a img {
+    transform:
+        scaleX(-1)
+        translate(0, 0)
+        rotate(3deg);
+}
+
+
+/*
+ * Zustand 2
+ */
+
+.corner-image-left.state-b img {
+    transform: translate(5px, -3px) rotate(3deg);
+}
+
+.corner-image-right.state-b img {
+    transform:
+        scaleX(-1)
+        translate(5px, -3px)
+        rotate(-3deg);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .corner-image {
+        width: 220px;
+        height: 220px;
+
+        top: 1rem;
+    }
+
+    .corner-image-left {
+        left: 1rem;
+    }
+
+    .corner-image-right {
+        right: 1rem;
+    }
+
+    .poem {
+        width: 86vw;
+
+        padding: 2.5rem 1.5rem;
+    }
+
+    .poem p {
+        font-size: 1.05rem;
+    }
+}
